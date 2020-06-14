@@ -1,0 +1,40 @@
+# Jan 2020 - never got this working - don't think it will be worth the hassle
+require "nokogiri"
+require "open-uri"
+require "onebox"
+
+module RealtyScrapers
+  class WithOnebox
+    attr_accessor :scraper_mapping
+
+    def initialize()
+      # if scraper_mapping.present?
+      #   self.scraper_mapping = scraper_mapping
+      # else
+      #   self.scraper_mapping = ScraperMapping.find_by_name(scraper_mapping_name)
+      #   raise ArgumentError, "Not valid scraper" if self.scraper_mapping.blank?
+      # end
+    end
+
+    def get_listing_from_url(import_url)
+      retrieved_items = retrieve_from_webpage import_url
+      return retrieved_items
+    end
+
+    private
+
+    def retrieve_from_webpage(import_url)
+      properties = []
+      # nov 2017 - only 1 property is ever returned currently
+
+      property_hash = {
+        "import_url" => import_url,
+      }
+
+      preview = Onebox.preview(import_url)
+      byebug
+      properties.push property_hash
+      properties
+    end
+  end
+end

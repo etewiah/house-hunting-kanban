@@ -1,0 +1,17 @@
+[
+{
+  "name": "default",
+  // names correspond to apt tenants 
+  // below might be scraper_names_for_blogs for h2m blogs
+  "scraper_names_for_props":
+  {
+    "fotocasa.es": "fotocasa",
+    "www.fotocasa.es": "fotocasa",
+    "idealista.com": "idealista",
+    "www.idealista.com": "idealista",
+    "zoopla.co.uk": "zoopla_for_sale",
+    "www.zoopla.co.uk": "zoopla_for_sale",
+    "www.rightmove.co.uk": "rightmove",
+    "rightmove.co.uk": "rightmove"
+  }
+}]

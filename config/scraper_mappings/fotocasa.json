@@ -1,0 +1,97 @@
+[{
+  "name": "fotocasa",
+  "defaultValues": {
+    "country": {
+      "value": "Spain"
+    },
+    "area_unit": {
+      "value": "sqmt"
+    },
+    "currency": {
+      "value": "EUR"
+    },
+    "locale_code": {
+      "value": "es"
+    }
+  },
+  "floatFields": {
+    "constructed_area": {
+      "cssLocator": "#litSurface"
+    },
+    "price_float": {
+      "cssLocator": "#priceContainer",
+      "stripNonNumbers" : true
+      // "cssAttr": "value"
+    },
+    "latitude":
+    {
+      // below is actually "Lat:[^\,]*" but had to escape the \
+      "scriptRegEx": "Lat\":[^\\,]*",
+      // will match "Lat": "41.97124152675616" within the script
+      "splitTextCharacter": "\"",
+      "splitTextArrayId": "2"
+    },
+    "longitude":
+    {
+      "scriptRegEx": "Lng\":[^\\,]*",
+      "splitTextCharacter": "\"",
+      "splitTextArrayId": "2"
+    }
+  },
+  "intFields": {
+    "count_bedrooms": {
+      "cssLocator": "#litRooms > b"
+    },
+    "count_bathrooms": {
+      "cssLocator": "#litBaths"
+    } 
+  },
+  "textFields": {
+    "reference": {
+      "scriptRegEx": "propertyId:[^\\,]*",
+      "splitTextCharacter": ":",
+      "splitTextArrayId": "1"
+    },
+    "title": {
+      "cssLocator": "title"
+    },
+    "description": {
+      "cssLocator": ".detail-description"
+    }
+  },
+  "images": [
+    {
+      "cssLocator": "#containerSlider img",
+      "xmlAttr": "src"
+    }
+  ],
+  "booleanCalcs": {
+    "for_rent": {
+      "field": "price_float",
+      "evaluator": "less_than",
+      "evalValue": "9000"
+    },
+    "for_sale": {
+      "field": "price_float",
+      "evaluator": "more_than",
+      "evalValue": "9000"
+    }
+  },
+  // "booleanFields": {
+  //   "for_rent": {
+  //     "cssLocator": ".txt-deposit",
+  //     "evaluator": "include?",
+  //     "evaluatorParam": "ianza"
+  //   },
+  //   "for_sale": {
+  //     "cssLocator": ".txt-mortgage",
+  //     "evaluator": "include?",
+  //     "evaluatorParam": "hipoteca"
+  //   }
+  // },
+  "extraFields": {
+    "images": {
+      "imagesCssLocator": "#main-multimedia > div > img"
+    }
+  }
+}]

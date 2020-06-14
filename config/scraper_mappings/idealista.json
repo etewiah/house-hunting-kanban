@@ -1,0 +1,106 @@
+// feb 2019
+[
+{
+  "name": "idealista",
+  "defaultValues":
+  {
+    "country":
+    {
+      "value": "Spain"
+    },
+    "area_unit":
+    {
+      "value": "sqmt"
+    },
+    "currency":
+    {
+      "value": "EUR"
+    },
+    "locale_code":
+    {
+      "value": "es"
+    }
+  },
+  "floatFields":
+  {
+    "constructed_area":
+    {
+      "cssLocator": "#main > div > div > section > div.info-data > span:nth-child(2) > span"
+    },
+    "price_float":
+    {
+      "cssLocator": "#main > div > div > section > div.info-data > span:nth-child(1) > span",
+      "stripPunct": "true"
+    },
+    "latitude":
+    {
+      // below is actually "latitude:[^\,]*" but had to escape the \
+      "scriptRegEx": "latitude:[^\\,]*",
+      "splitTextCharacter": "\"",
+      "splitTextArrayId": "1"
+    },
+    "longitude":
+    {
+      "scriptRegEx": "longitude:[^\\,]*",
+      "splitTextCharacter": "\"",
+      "splitTextArrayId": "1"
+    }
+  },
+  "intFields":
+  {
+    "count_bedrooms":
+    {
+      "cssLocator": "#main > div > div > section > div.info-data > span:nth-child(3) > span"
+    }
+  },
+  "textFields":
+  {
+    "reference":
+    {
+      "scriptRegEx": "propertyId:[^\\,]*",
+      "splitTextCharacter": ":",
+      "splitTextArrayId": "1"
+    },
+    "title":
+    {
+      "cssLocator": "title"
+    },
+    "description":
+    {
+      "cssLocator": "div.adCommentsLanguage"
+    },
+    "price_string":
+    {
+      "cssLocator": "#main > div > div > section > div.info-data > span:nth-child(1) > span"
+    }
+  },
+  "images": [
+  {
+    "cssLocator": ".placeholder-multimedia img",
+    // element returned from above is XML with some extra fields I could make use of like:
+    // name="title" value="Imagen Salón de dúplex en calle Subida Amargura, 2, El Molar"
+    "xmlAttr": "data-service",
+    "stripString": ",WEB_DETAIL"
+  }],
+  "booleanFields":
+  {
+    "for_rent":
+    {
+      "cssLocator": ".txt-deposit",
+      "evaluator": "include?",
+      "evaluatorParam": "ianza"
+    },
+    // "for_rent_long_term":
+    // {
+    //   "cssLocator": ".txt-deposit",
+    //   "evaluator": "include?",
+    //   "evaluatorParam": "ianza"
+    // },
+    "for_sale":
+    {
+      "cssLocator": ".txt-mortgage",
+      "evaluator": "include?",
+      "evaluatorParam": "hipoteca"
+    }
+  }
+}]

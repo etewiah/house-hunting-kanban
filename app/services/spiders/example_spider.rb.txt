@@ -1,0 +1,50 @@
+# require "nokogiri"
+# require "open-uri"
+require "kimurai"
+
+module Spiders
+  class ExampleSpider < Kimurai::Base
+    @name = "example_spider"
+    # @engine = :mechanize
+    @engine = :selenium_chrome
+    @start_urls = ["https://example.com/"]
+
+    def parse(response, url:, data: {})
+      target_uri = uri_from_url url
+      scraper_mapping = get_scraper_mapping target_uri.host
+
+      # title = response.xpath("//title").text.squish
+      # results = response.xpath("//div[@class='g']//h3/a").map do |a|
+      #   { title: a.text, url: a[:href] }
+      # end
+      listings_hash = ListingHashFromDoc.parse(response, scraper_mapping, target_uri)
+    end
+
+    def uri_from_url(import_url)
+      begin
+        uri = URI.parse import_url
+      rescue URI::InvalidURIError => error
+        uri = ""
+      end
+    end
+
+    def get_scraper_mapping(uri_host)
+      scraper_hosts = SupportedScraperHosts.find_by_name "default"
+      scraper_mapping = nil
+      if scraper_hosts.scraper_names_for_props.keys.include? uri_host
+        scraper_name = scraper_hosts.scraper_names_for_props[uri_host]
+        scraper_mapping = ::ScraperMapping.find_by_name(scraper_name)
+      end
+      unless scraper_mapping
+        debugger
+        #
+      end
+      return scraper_mapping
+    end
+  end
+
+  # Spiders::ExampleSpider.parse!(:parse, url: "https://example.com/")
+  # # => "Example Domain"
+  # # this is example when you need to override config
+  # Spiders::ExampleSpider.parse!(:parse, url: "https://example.com/", config: { before_request: { clear_and_set_cookies: true } })
+end

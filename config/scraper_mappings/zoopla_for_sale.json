@@ -1,0 +1,126 @@
+[
+{
+  "name": "zoopla_for_sale",
+  "defaultValues":
+  {
+    "country":
+    {
+      "value": "UK"
+    },
+    "area_unit":
+    {
+      "value": "sqft"
+    },
+    "currency":
+    {
+      "value": "GBP"
+    },
+    "for_sale":
+    {
+      "value": true
+    }
+  },
+  "floatFields":
+  {
+    "constructed_area":
+    {
+      "cssLocator": "#listing-details > div.clearfix.bottom > div.listing-details-address > div > span.num-icon.num-sqft",
+      "stripPunct": "true"
+    },
+    // "price_float": {
+    //   "cssLocator": "#main-content > div.ui-layout > div.dp-grid-wrapper.js-sticky-adverts-end > div.dp-sidebar-wrapper > article > div.ui-pricing > p",
+    //   // "stripFirstChar": "true",
+    //   "stripPunct": "true",
+    //   "splitTextCharacter": " ",
+    //   "splitTextArrayId": "0"
+    // },
+    "price_sale_current_cents":
+    {
+      "cssLocator": "#main-content > div.ui-layout > div.dp-grid-wrapper.js-sticky-adverts-end > div.dp-sidebar-wrapper > article > div.ui-pricing > p",
+      "stripFirstChar": "true",
+      "stripPunct": "true",
+      "splitTextCharacter": " ",
+      "splitTextArrayId": "0",
+      // "cssLocator": "div.qode_pricing_list > ul > li > div.qode_pricing_item_price > div > span",
+      "multiplier": 100
+      // "stripFirstChar": "true",
+      // "stripPunct": "true"
+    },
+    "latitude":
+    {
+      // below is actually "latitude"[^\}]*" but had to escape the " and \
+      "scriptRegEx": "latitude\"[^\\}]*",
+      "splitTextCharacter": ":",
+      "splitTextArrayId": "1"
+    },
+    "longitude":
+    {
+      "scriptRegEx": "longitude\"[^\\}]*",
+      "splitTextCharacter": ":",
+      "splitTextArrayId": "1"
+    }
+  },
+  "intFields":
+  {
+    "count_bathrooms":
+    {
+      "cssLocator": "#main-content > div.ui-layout > div.dp-grid-wrapper.js-sticky-adverts-end > div.dp-features-wrapper.dp-subgroup > section > ul:nth-child(2) > li:nth-child(2)"
+    },
+    "count_bedrooms":
+    {
+      "cssLocator": "#main-content > div.ui-layout > div.dp-grid-wrapper.js-sticky-adverts-end > div.dp-features-wrapper.dp-subgroup > section > ul:nth-child(2) > li:nth-child(1)"
+    }
+  },
+  "images": [
+  {
+    "cssLocator": ".dp-gallery__list-item--orphan img",
+    "xmlAttr": "src"
+  },
+  {
+    "cssLocator": ".dp-gallery__list-item-original img",
+    "xmlAttr": "src"
+  }],
+  "textFields":
+  {
+    "reference":
+    {
+      "scriptRegEx": "ZPG.trackData.taxonomy [^}]*",
+      "regExInRegEx": "listing_id[^,]*",
+      "splitTextCharacter": ":",
+      "splitTextArrayId": "1"
+    },
+    "postal_code":
+    {
+      "scriptRegEx": "ZPG.trackData.taxonomy [^}]*",
+      "regExInRegEx": "outcode[^,]*",
+      "splitTextCharacter": "\"",
+      "splitTextArrayId": "1",
+      "charsToClean": "\\"
+    },
+    "street_address":
+    {
+      "scriptRegEx": "ZPG.trackData.taxonomy [^}]*",
+      "regExInRegEx": "display_address: [^:]*",
+      // [^:]* above means everything till ":" character
+      // Because this value includes commas, can't use that like I do with other regexes
+      "splitTextCharacter": "\"",
+      "splitTextArrayId": "1",
+      "charsToClean": "\\"
+    },
+    "title":
+    {
+      "cssLocator": "title"
+    },
+    "description":
+    {
+      "cssLocator": ".dp-description__text"
+    }
+    // "price_string": {
+    //   "cssLocator": "#main-content > div.ui-layout > div.dp-grid-wrapper.js-sticky-adverts-end > div.dp-sidebar-wrapper > article > div.ui-pricing > p",
+    //   "splitTextCharacter": " ",
+    //   "splitTextArrayId": "0"
+    // }
+  },
+  "booleanFields":
+  {}
+}]
