@@ -10,8 +10,7 @@ If anyone wants to develop this further I will be happy to help but for now my f
 
 Who knows, I might open source that too at some point (I previously open sourced PropertyWebBuilder which does what you'd expect) - but fingers crossed I think I'll manage to monetize this one ;)
 
-## Jan 2022 update
+## March 2022 update
 
-This project has now been superceeded by this single property webpage builder that can also be used for house-hunting: 
-
-[https://github.com/etewiah/quasar-singlepropertypages/](https://github.com/etewiah/quasar-singlepropertypages/)
+An enhanced version of this project is now available here:
+[https://propertysquares.com/](https://propertysquares.com/)
